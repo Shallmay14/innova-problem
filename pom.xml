@@ -13,7 +13,7 @@
 
     <groupId>com.innova</groupId>
     <artifactId>password-validation</artifactId>
-    <version>${passvalid.version}</version>
+    <version>1.0.0</version>
 
     <properties>
         <!-- 基本環境設定 -->
@@ -22,8 +22,6 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!-- 設定版號設定 -->
-        <passvalid.version>1.0.0-881bbd5f7</passvalid.version>
 
     </properties>
 
