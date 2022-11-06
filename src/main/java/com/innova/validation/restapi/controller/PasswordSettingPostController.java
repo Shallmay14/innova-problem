@@ -1,6 +1,7 @@
 package com.innova.validation.restapi.controller;
 
 import com.innova.validation.application.PasswordSettingApplication;
+import com.innova.validation.domain.model.PasswordValidResult;
 import com.innova.validation.restapi.model.out.PasswordValidOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ public class PasswordSettingPostController {
   private PasswordSettingApplication passwordSettingApplication;
 
   @PostMapping(value = "/password-validation")
-  public PasswordValidOut passwordValidation(@RequestBody String vin) {
-    return new PasswordValidOut();
+  public PasswordValidResult passwordValidation(@RequestBody String password) {
+    return passwordSettingApplication.validPassword(password);
   }
 }

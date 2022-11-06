@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
 class ValidationApplicationTests {
   @Test
-  void contextLoads() {
+  void unitTest1() {
     assertTrue(true);
   }
 }
