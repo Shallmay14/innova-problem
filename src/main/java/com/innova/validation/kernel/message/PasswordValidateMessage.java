@@ -14,7 +14,7 @@ public enum PasswordValidateMessage {
     /** 新增 */
     ERR_LEN("EPV0002", "Must be between 5 and 12 characters in length."),
     /** 新增 */
-    ERR_RULE("EPV0003", "Must not contain any sequence of characters immediately followed by the same sequence.");
+    ERR_SAME("EPV0003", "Must not contain any sequence of characters immediately followed by the same sequence.");
 
     /** 訊息代碼. */
     private final String code;
