@@ -1,45 +1,38 @@
 package com.innova.validation.restapi.controller;
 
-import com.innova.validation.application.PasswordSettingApplication;
-import com.innova.validation.domain.model.PasswordValidResult;
+import com.innova.validation.kernel.message.PasswordValidateMessage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockServletContext;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.ServletContext;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @SpringBootTest
-@WebAppConfiguration
-public class PasswordSettingPostControllerTest {
+class PasswordSettingPostControllerTest {
 
-  private static final String API_ROOT = "http://localhost:8080/password-validation";
-
-  @Autowired
-  private WebApplicationContext webApplicationContext;
-
+  private static final String CONTENT_TYPE = "application/json";
+  @Autowired private WebApplicationContext webApplicationContext;
   private MockMvc mockMvc;
+
   @BeforeEach
   public void setup() throws Exception {
     this.mockMvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext).build();
   }
 
   @Test
-  public void givenWac_whenServletContext_thenItProvidesRestController() {
+  void givenWac_whenServletContext_thenItProvidesRestController() {
     ServletContext servletContext = webApplicationContext.getServletContext();
 
     assertNotNull(servletContext);
@@ -47,4 +40,26 @@ public class PasswordSettingPostControllerTest {
     assertNotNull(webApplicationContext.getBean("passwordSettingPostController"));
   }
 
+  @Test
+  void givenActuatorURI_whenMockMVC_thenResponseOK() throws Exception {
+    this.mockMvc
+        .perform(MockMvcRequestBuilders.get("/actuator"))
+        .andDo(print())
+        .andExpect(MockMvcResultMatchers.status().isOk());
+  }
+
+  @Test
+  void givenValidationURIWithPostAndFormData_whenMockMVC_thenResponseOK() throws Exception {
+    this.mockMvc
+        .perform(
+            MockMvcRequestBuilders.post("/password-setting/post/password-validation")
+                .param("password", "abcdabc")
+                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding("UTF-8"))
+        .andDo(print())
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andExpect(MockMvcResultMatchers.content().contentType(CONTENT_TYPE))
+        .andExpect(MockMvcResultMatchers.jsonPath("$.msgCode").value(PasswordValidateMessage.PASS.getCode()));
+  }
 }
