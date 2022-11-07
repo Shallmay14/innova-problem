@@ -5,9 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 密碼驗證結果 <br/>
- * {@link #validResult} <br/>
- * {@link #msgCode} <br/>
+ * 密碼驗證結果 <br>
+ * {@link #validResult} <br>
+ * {@link #msgCode} <br>
  * {@link #message}
  */
 @Data

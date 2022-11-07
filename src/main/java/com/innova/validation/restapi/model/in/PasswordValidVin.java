@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PasswordVin {
+public class PasswordValidVin {
 
   /** 輸入密碼 */
   private String password;

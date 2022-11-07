@@ -18,6 +18,7 @@ public class ValidateUtils {
     return text.matches(IS_LOWERCASE_LETTER_OR_NUMBER_REGEX);
   }
 
+  /** 是否符合長度限制 */
   public static boolean isBetweenLength(String text, int minLen, int maxLen) {
     return text.length() >= minLen && text.length() <= maxLen;
   }
