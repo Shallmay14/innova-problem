@@ -11,17 +11,17 @@ public class PasswordValidService {
 
   public PasswordValidResult validPassword(String password) {
 
+    if (!ValidateUtils.isBetweenLength(password, 5, 12))
+      return new PasswordValidResult(
+              false,
+              PasswordValidateMessage.ERR_LEN.getCode(),
+              PasswordValidateMessage.ERR_LEN.getText());
+
     if (!ValidateUtils.isLowercaseLetterOrNumber(password))
       return new PasswordValidResult(
           false,
           PasswordValidateMessage.ERR_CHAR.getCode(),
           PasswordValidateMessage.ERR_CHAR.getText());
-
-    if (!ValidateUtils.isBetweenLength(password, 5, 12))
-      return new PasswordValidResult(
-          false,
-          PasswordValidateMessage.ERR_LEN.getCode(),
-          PasswordValidateMessage.ERR_LEN.getText());
 
     if (isContainSameSequence(password))
       return new PasswordValidResult(
